@@ -1,5 +1,11 @@
 # Cutting Tool Recommendation System
 
+[![Python checks](https://github.com/juleescourne/cutting-tool-recommender/actions/workflows/python-tests.yml/badge.svg)](https://github.com/juleescourne/cutting-tool-recommender/actions/workflows/python-tests.yml)
+![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-4479A1)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
+> Part of my Data portfolio: [juleescourne.github.io/portfolio-data-analyst](https://juleescourne.github.io/portfolio-data-analyst/)
+
 A Python decision-support application for **machining experiment analysis and cutting-tool recommendation**.
 
 The project was originally developed as an engineering/academic prototype in collaboration with the Mechanical Engineering department at the University of Tours. It combines a relational machining-experiment database, Excel ingestion, dimensionality reduction with PCA, similarity-based recommendation, and interactive Plotly/Dash visualizations.
