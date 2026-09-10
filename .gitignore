@@ -28,3 +28,8 @@ downloads/*
 
 # Logs
 *.log
+
+# Intermediaire du generateur de demonstration : recree a l'identique par
+# scripts/generate_demo_experiments.py (graine fixe). Seul demo/index.html,
+# qui embarque deja les donnees, est versionne.
+demo/data.json
