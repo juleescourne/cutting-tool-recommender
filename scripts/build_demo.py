@@ -98,13 +98,13 @@ TEMPLATE = """<!doctype html>
 </head>
 <body>
 <div class="wrap">
-  <header>
+  <header id="page-header">
     <h1>Aide à la décision — choix d'un outil coupant</h1>
     <p class="sub">Définissez une configuration d'usinage cible : l'application la projette dans
     l'espace des expériences historiques et classe les essais les plus proches.</p>
   </header>
 
-  <p class="note">
+  <p class="note" id="page-note">
     <strong>Démonstration sur données synthétiques.</strong> Les mesures du partenariat de recherche
     ne sont pas redistribuables. Les __N__ expériences utilisées ici sont générées selon les lois
     physiques de la coupe (Kienzle pour l'effort, Taylor pour l'usure, rugosité théorique).
@@ -151,6 +151,17 @@ TEMPLATE = """<!doctype html>
   </footer>
 </div>
 
+<script>
+// Embarquée dans une iframe, la page est déjà présentée par son conteneur :
+// on masque l'en-tête et l'avertissement pour ne pas les afficher deux fois.
+if (window.self !== window.top) {
+  document.documentElement.classList.add('embedded');
+}
+</script>
+<style>
+  .embedded #page-header, .embedded #page-note, .embedded footer { display: none; }
+  .embedded .wrap { padding-top: 8px; }
+</style>
 <script>
 const DATA = __DATA__;
 const MODEL = __MODEL__;
