@@ -107,7 +107,7 @@ Détail complet : [ARCHITECTURE.md](ARCHITECTURE.md).
 
 Les mesures d'origine proviennent d'un partenariat de recherche et **ne sont pas
 redistribuées**. Le dépôt fournit à la place un générateur d'essais synthétiques
-respectant les lois physiques de la coupe :
+inspiré de modèles simplifiés de la coupe :
 
 | Grandeur | Loi |
 | --- | --- |
@@ -116,8 +116,11 @@ respectant les lois physiques de la coupe :
 | Rugosité | rugosité théorique, dégradée par l'usure |
 | Température | croissante avec Vc et la dureté, atténuée par la lubrification |
 
-Sur ce jeu, les deux premiers axes de l'ACP portent **61,6 %** de la variance et
-s'interprètent physiquement — ce que du bruit aléatoire n'aurait pas permis.
+Le jeu web comprend **360 essais**, 20 par couple procédé/matériau. Les vues ACP
+**2D et 3D Plotly** sont interactives ; le classement utilise les six axes. La matrice
+de corrélations, l’éboulis de variance et les écarts essai–cible permettent d’auditer
+la recommandation. Les deux premiers axes portent environ **56,6 %** de la variance.
+Les équations sont pédagogiques, pas un simulateur industriel validé.
 
 ---
 

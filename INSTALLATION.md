@@ -91,7 +91,7 @@ python scripts/generate_demo_experiments.py
 mysql -u cutting_user -p cutting < db/demo_data.sql
 ```
 
-60 expériences synthétiques, réparties sur 3 procédés et 6 matériaux.
+360 expériences synthétiques, réparties sur 3 procédés et 6 matériaux.
 
 ### 5. Lancer
 

@@ -3,7 +3,7 @@
 
 Les mesures expérimentales d'origine proviennent d'un partenariat de recherche et
 ne sont pas redistribuables. Ce script produit un jeu de substitution qui respecte
-la **structure** de la base et, surtout, les **relations physiques** entre
+la **structure** de la base et, surtout, les **relations simplifiées inspirées de la physique** entre
 paramètres de coupe et mesures — sans quoi l'ACP et la recommandation par
 similarité n'auraient aucun sens à démontrer.
 
@@ -17,6 +17,10 @@ Modèle physique simplifié
   réduite par les revêtements.
 - Vibration : amplifiée par l'élancement de l'outil et l'engagement radial.
 
+Couverture équilibrée des couples procédé/matériau. Pas de diamant sur acier,
+inox, titane ou nickel ; une dent en tournage, deux en perçage. Ces conventions
+ne remplacent pas une validation des compatibilités industrielles.
+
 Un bruit multiplicatif de 5 % est appliqué à chaque mesure, pour que les points ne
 soient pas parfaitement alignés sur les lois — sinon l'ACP produirait une variance
 concentrée à 100 % sur le premier axe.
@@ -27,7 +31,7 @@ Sorties
 - ``demo/data.json``      : même jeu, consommé par la démo web autonome
 
 Usage :
-    python scripts/generate_demo_experiments.py [--experiments 60] [--seed 42]
+    python scripts/generate_demo_experiments.py [--experiments 360] [--seed 42]
 """
 
 from __future__ import annotations
@@ -76,10 +80,10 @@ def build_experiments(count: int, seed: int) -> list[dict]:
     experiments = []
 
     for index in range(1, count + 1):
-        procede = rng.choice(PROCEDES)
-        materiau = rng.choice(list(MATERIAUX))
+        procede = PROCEDES[(index - 1) % len(PROCEDES)]
+        materiau = list(MATERIAUX)[((index - 1) // len(PROCEDES)) % len(MATERIAUX)]
         props = MATERIAUX[materiau]
-        revetement = rng.choice(list(REVETEMENTS))
+        revetement = rng.choice(list(REVETEMENTS) if materiau == "AlSi7Mg" else [r for r in REVETEMENTS if r != "Diamant"])
         assistance = rng.choice(list(ASSISTANCES))
 
         # --- Paramètres de coupe, plage adaptée à l'usinabilité de la matière
@@ -89,7 +93,7 @@ def build_experiments(count: int, seed: int) -> list[dict]:
         ap = rng.uniform(0.3, 4.0)                   # profondeur de passe (mm)
         ae = rng.uniform(0.2, 1.0)                   # engagement radial (ratio)
         diametre = rng.choice([6.0, 8.0, 10.0, 12.0, 16.0, 20.0, 25.0])
-        nb_dents = rng.choice([2, 3, 4, 5, 6])
+        nb_dents = 1 if procede == "Tournage" else 2 if procede == "Percage" else rng.choice([2, 3, 4, 5, 6])
         rayon_arrete = rng.choice([0.2, 0.4, 0.8, 1.2])
         longueur_usinee = rng.uniform(20, 300)
 
@@ -127,7 +131,7 @@ def build_experiments(count: int, seed: int) -> list[dict]:
         # --- Sorties pièce
         durete_finale = jitter(rng, props["durete"] * (1.0 + 0.18 * vb))
         contrainte_residuelle = jitter(rng, -180.0 + 0.9 * temperature)
-        limite_endurance = jitter(rng, 420.0 - 55.0 * ra)
+        limite_endurance = max(10.0, jitter(rng, 420.0 - 55.0 * ra))
         epaisseur_copeau = jitter(rng, fz * 1.35)
 
         experiments.append({
@@ -180,7 +184,7 @@ def write_sql(experiments: list[dict], path: Path) -> None:
     add("-- demo_data.sql - jeu d'experiences d'usinage synthetiques")
     add("--")
     add(f"-- {len(experiments)} experiences generees par scripts/generate_demo_experiments.py")
-    add("-- Les mesures respectent les lois physiques de la coupe (Kienzle, Taylor,")
+    add("-- Les mesures respectent des modèles simplifiés inspirés de la coupe (Kienzle, Taylor,")
     add("-- rugosite theorique) : l'ACP et la recommandation par similarite produisent")
     add("-- donc des resultats interpretables, contrairement a du bruit aleatoire.")
     add("--")
@@ -286,7 +290,7 @@ def write_sql(experiments: list[dict], path: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--experiments", type=int, default=60, help="nombre d'expériences (défaut : 60)")
+    parser.add_argument("--experiments", type=int, default=360, help="nombre d'expériences (défaut : 60)")
     parser.add_argument("--seed", type=int, default=42, help="graine aléatoire (défaut : 42)")
     parser.add_argument("--sql", type=Path, default=Path("db/demo_data.sql"))
     parser.add_argument("--json", type=Path, default=Path("demo/data.json"))

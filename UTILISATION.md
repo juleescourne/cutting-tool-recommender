@@ -100,10 +100,15 @@ expérience et la croix votre configuration cible, ainsi que la liste des
 
 ![Plan factoriel et classement](docs/images/demo-acp.webp)
 
-Le **cercle des corrélations** indique ce que représentent les axes. Sur le jeu de
-démonstration, PC1 oppose les essais rapides et chauds (usure et température) aux
-essais lourds et lents (effort et rugosité) : c'est l'arbitrage entre productivité
-et durée de vie de l'outil.
+Dans la démo web, choisissez **ACP 2D** ou **ACP 3D**, faites tourner le nuage et
+cliquez sur un point pour afficher les six écarts à la cible. Les cinq voisins sont
+mis en évidence ; le classement est calculé dans les six dimensions et ne change
+pas avec la vue. La matrice Pearson montre les corrélations du sous-ensemble filtré.
+L’éboulis de variance indique la part d’information masquée par la projection.
+
+Les scénarios de départ utilisent le centre de l’historique ou un essai du jeu filtré
+à faible rugosité / temps court. Ils n’optimisent pas des paramètres de coupe.
+Le classement peut être exporté en CSV avec ses distances et ses mesures.
 
 ### Comment lire une recommandation
 
