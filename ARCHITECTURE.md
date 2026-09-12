@@ -157,26 +157,19 @@ supervisé, ni métrique de généralisation à rapporter.
 
 ## 4. Interprétation des axes sur le jeu de démonstration
 
-Sur les 60 expériences synthétiques, les deux premiers axes portent **61,6 %** de la
-variance :
+Le jeu web contient 360 essais synthétiques équilibrés (20 par couple procédé/matériau).
+Les vues 2D et 3D sont des projections de la même ACP à six axes, ajustée sur
+l'historique standardisé. Le classement conserve les six axes, indépendamment de
+la vue choisie. Les filtres ne réajustent pas le modèle.
 
-| Variable | PC1 | PC2 |
-| --- | ---: | ---: |
-| Usure en dépouille VB | **+0,78** | −0,23 |
-| Température outil | **+0,66** | −0,51 |
-| Effort de coupe | **−0,71** | −0,37 |
-| Rugosité Ra | **−0,68** | −0,47 |
-| Amplitude vibratoire | +0,23 | **−0,70** |
-| Temps d'usinage | +0,14 | **+0,72** |
+Les deux premiers axes expliquent environ **56,6 %** de la variance. Le graphique
+d'éboulis affiche les six parts et leur cumul. Une matrice Pearson remplace le
+cercle dans la démo web ; elle est recalculée sur les essais filtrés et masque les
+cellules non définies (moins de trois observations ou variable constante).
 
-**PC1 oppose deux régimes de coupe.** À droite, les essais rapides et chauds : usure
-et température élevées. À gauche, les essais lourds et lents : efforts et rugosité
-élevés. C'est l'arbitrage classique entre productivité et durée de vie de l'outil.
-
-**PC2 oppose durée d'usinage et sollicitation dynamique** : les essais longs et
-calmes en haut, les essais courts et vibrants en bas.
-
-![Démonstration interactive](docs/images/demo-acp.webp)
+La comparaison essai–cible affiche les écarts en unités physiques et en écarts-types.
+La distance n'est pas une confiance ou un indicateur d'optimalité. Les corrélations
+sont influencées par les équations de simulation, elles ne valident pas un effet industriel.
 
 ---
 
@@ -205,7 +198,7 @@ Les mesures d'origine proviennent d'un partenariat avec le département Génie
 mécanique de l'université de Tours et ne sont pas redistribuables.
 
 `scripts/generate_demo_experiments.py` produit un jeu de substitution qui respecte
-les **lois physiques de la coupe**, et non du bruit aléatoire :
+des **relations simplifiées inspirées de la coupe**, avec du bruit simulé :
 
 | Grandeur | Loi utilisée |
 | --- | --- |
