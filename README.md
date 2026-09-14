@@ -17,7 +17,11 @@ Développé avec le département Génie mécanique de l'**université de Tours**
 
 ---
 
-## Essayer sans rien installer
+## Essayer la démonstration
+
+[Ouvrir la démo dans le portfolio](https://juleescourne.github.io/portfolio-data-analyst/#/cutting-tools).
+
+Pour reconstruire la démo localement, Python est nécessaire.
 
 L'application est un logiciel de bureau Python/Tkinter adossé à MySQL : elle ne peut
 pas tourner dans un navigateur. Son **cœur analytique** a donc été reproduit dans une
@@ -78,9 +82,9 @@ ensuite projeté dans cet espace figé. L'inclure dans l'ajustement le laisserai
 influencer les axes servant à le comparer — le même principe qu'un `fit` réservé au
 jeu d'entraînement.
 
-**La distance est pondérée par la variance expliquée.** Un écart sur un axe
-structurant pèse plus qu'un écart sur un axe résiduel, sans quoi les dernières
-composantes — essentiellement du bruit — compteraient autant que la première.
+**La distance est pondérée par la variance expliquée.** Elle donne plus de poids aux axes de forte variance. C’est un choix de similarité, pas une preuve de pertinence industrielle : un axe de faible variance peut porter une information utile.
+
+Dans la démo web, l’ACP est ajustée sur les 360 essais, puis les filtres restreignent les candidats sans réajustement. Dans l’application de bureau, elle est ajustée après filtrage procédé/matériau. Les principes sont proches, mais les classements ne sont pas garantis identiques.
 
 Détail complet : [ARCHITECTURE.md](ARCHITECTURE.md).
 

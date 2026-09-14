@@ -141,7 +141,7 @@ $$d(u, e) = \sqrt{\sum_{k} \lambda_k \,(u_k - e_k)^2}$$
 
 où $\lambda_k$ est la part de variance expliquée par la composante $k$. Un écart sur
 un axe structurant pèse davantage qu'un écart sur un axe résiduel — sans quoi les
-dernières composantes, essentiellement du bruit, compteraient autant que la
+dernières composantes compteraient autant que la
 première.
 
 Les dix expériences les plus proches sont affichées.
